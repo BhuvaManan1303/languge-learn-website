@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BhashaLearn | Learn in Your Language</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #6c63ff;
+            --secondary: #00bfa6;
+            --dark: #111827;
+            --text: #374151;
+            --light: #f5f7ff;
+            --white: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            height: 72px;
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .language-btn,
+        .dark-btn {
+            padding: 9px 14px;
+            border-radius: 10px;
+            background: #eef0ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            background:
+                radial-gradient(circle at 80% 20%, #ddd9ff 0, transparent 30%),
+                radial-gradient(circle at 10% 80%, #c9fff5 0, transparent 30%),
+                var(--light);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            padding: 70px 25px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e9e7ff;
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 70px);
+            line-height: 1.05;
+            color: var(--dark);
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 19px;
+            max-width: 620px;
+            margin-bottom: 30px;
+            color: #596273;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            padding: 14px 25px;
+            border-radius: 12px;
+            color: white;
+            background: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(108,99,255,0.25);
+            transition: 0.3s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .secondary-btn {
+            padding: 14px 25px;
+            border-radius: 12px;
+            color: var(--dark);
+            background: white;
+            border: 1px solid var(--border);
+            font-weight: 700;
+        }
+
+        /* HERO CARD */
+        .hero-card {
+            background: white;
+            padding: 28px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.10);
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .mini-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: #eeecff;
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #eee;
+            border-radius: 20px;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 72%;
+            background: linear-gradient(90deg,var(--primary),var(--secondary));
+            border-radius: 20px;
+        }
+
+        .language-preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .lang {
+            padding: 9px 15px;
+            border-radius: 10px;
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .lang.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* SECTION */
+        section {
+            padding: 90px 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            max-width: 650px;
+            margin: auto;
+            color: #6b7280;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: #eeecff;
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        /* SUBJECTS */
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .subject {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+        }
+
+        .subject-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .subject h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        /* EXPLAINER */
+        .explainer-section {
+            background: #111827;
+            color: white;
+        }
+
+        .explainer-section .section-title h2 {
+            color: white;
+        }
+
+        .explainer-section .section-title p {
+            color: #cbd5e1;
+        }
+
+        .explainer {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 22px;
+            color: var(--text);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .input-row input,
+        .input-row select {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .input-row input:focus,
+        .input-row select:focus {
+            border-color: var(--primary);
+        }
+
+        .answer {
+            background: #f5f7ff;
+            padding: 20px;
+            border-radius: 15px;
+            min-height: 100px;
+        }
+
+        .answer h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .voice-btn {
+            margin-top: 15px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            background: var(--secondary);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* QUIZ */
+        .quiz {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.07);
+        }
+
+        .quiz-question {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .option {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            background: #f5f6fa;
+            border-radius: 10px;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #e9e7ff;
+        }
+
+        #quiz-result {
+            margin-top: 20px;
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0b1120;
+            color: #cbd5e1;
+            padding: 45px 25px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        footer h2 {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            text-align: center;
+            border-top: 1px solid #263044;
+            padding-top: 20px;
+        }
+
+        /* DARK MODE */
+        body.dark {
+            background: #0f172a;
+            color: #cbd5e1;
+        }
+
+        body.dark nav {
+            background: rgba(15,23,42,0.95);
+        }
+
+        body.dark .nav-links a,
+        body.dark .hero h1,
+        body.dark .section-title h2,
+        body.dark .feature-card h3,
+        body.dark .subject h3 {
+            color: white;
+        }
+
+        body.dark .hero {
+            background: #0f172a;
+        }
+
+        body.dark .feature-card,
+        body.dark .subject,
+        body.dark .hero-card,
+        body.dark .quiz,
+        body.dark .explainer {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark .hero p,
+        body.dark .section-title p {
+            color: #94a3b8;
+        }
+
+        body.dark .answer,
+        body.dark .option {
+            background: #273449;
+            color: #e2e8f0;
+        }
+
+        /* MOBILE */
+        @media(max-width: 900px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .subjects {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .features,
+            .subjects {
+                grid-template-columns: 1fr;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            section {
+                padding: 65px 18px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="navbar">
+
+        <div class="logo">
+            Bhasha<span>Learn</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#subjects">Subjects</a></li>
+            <li><a href="#learn">Learn</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <button class="language-btn" onclick="changeLanguage()">ગુજરાતી</button>
+            <button class="dark-btn" onclick="toggleDark()">🌙</button>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-container">
+
+        <div>
+
+            <span class="badge">🌍 Learn Without Language Barriers</span>
+
+            <h1>
+                Learn <span>Anything</span><br>
+                In Your Language.
+            </h1>
+
+            <p>
+                BhashaLearn makes difficult educational and technical
+                concepts easier by explaining them in Gujarati, Hindi
+                and simple English.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#learn">
+                    <button class="primary-btn">Start Learning →</button>
+                </a>
+
+                <a href="#features">
+                    <button class="secondary-btn">Explore Features</button>
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="card-top">
+                <div>
+                    <small>Today's Learning</small>
+                    <h2>Machine Learning</h2>
+                </div>
+
+                <div class="mini-icon">🧠</div>
+            </div>
+
+            <p>
+                Machine Learning means teaching computers
+                to learn patterns from data.
+            </p>
+
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+
+            <small>72% Learning Progress</small>
+
+            <div class="language-preview">
+                <span class="lang active">ગુજરાતી</span>
+                <span class="lang">हिंदी</span>
+                <span class="lang">English</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+<section id="features">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Why BhashaLearn?</h2>
+            <p>
+                Learning should depend on understanding, not on
+                how fluent you are in a particular language.
+            </p>
+        </div>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Local Language</h3>
+                <p>
+                    Understand concepts in Gujarati, Hindi or
+                    simple English.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Explanation</h3>
+                <p>
+                    Get difficult topics explained in a simple
+                    student-friendly way.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔊</div>
+                <h3>Voice Learning</h3>
+                <p>
+                    Listen to explanations using text-to-speech
+                    technology.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Simple Notes</h3>
+                <p>
+                    Convert complicated topics into short,
+                    understandable notes.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">❓</div>
+                <h3>Interactive Quiz</h3>
+                <p>
+                    Test your knowledge after learning a topic.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Track Progress</h3>
+                <p>
+                    Track your learning progress and improve
+                    your weak areas.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SUBJECTS -->
+<section id="subjects">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Explore Subjects</h2>
+            <p>Start learning technical concepts in your preferred language.</p>
+        </div>
+
+        <div class="subjects">
+
+            <div class="subject">
+                <div class="subject-icon">💻</div>
+                <h3>Programming</h3>
+                <p>Python, Java, C, JavaScript</p>
+            </div>
+
+            <div class="subject">
+                <div class="subject-icon">🤖</div>
+                <h3>AI & ML</h3>
+                <p>Machine Learning and AI concepts</p>
+            </div>
+
+            <div class="subject">
+                <div class="subject-icon">☁️</div>
+                <h3>Cloud Computing</h3>
+                <p>Cloud, servers and virtualization</p>
+            </div>
+
+            <div class="subject">
+                <div class="subject-icon">🔗</div>
+                <h3>Blockchain</h3>
+                <p>Blockchain and Web3 basics</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI EXPLAINER -->
+<section class="explainer-section" id="learn">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Understand Any Concept</h2>
+            <p>
+                Enter a technical topic and choose your preferred language.
+            </p>
+        </div>
+
+        <div class="explainer">
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="topic"
+                    placeholder="Example: What is Artificial Intelligence?"
+                >
+
+                <select id="language">
+                    <option value="gujarati">Gujarati</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="english">English</option>
+                </select>
+
+                <button class="primary-btn" onclick="explainTopic()">
+                    Explain
+                </button>
+
+            </div>
+
+            <div class="answer" id="answer">
+
+                <h3>💡 Your Explanation</h3>
+
+                <p>
+                    Enter a topic above and click Explain to see
+                    a simple explanation.
+                </p>
+
+            </div>
+
+            <button class="voice-btn" onclick="speakAnswer()">
+                🔊 Listen
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUIZ -->
+<section id="quiz">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Quick Quiz</h2>
+            <p>Test your understanding.</p>
+        </div>
+
+        <div class="quiz">
+
+            <div class="quiz-question">
+                What does AI stand for?
+            </div>
+
+            <button class="option" onclick="checkAnswer(this,false)">
+                A. Automatic Internet
+            </button>
+
+            <button class="option" onclick="checkAnswer(this,true)">
+                B. Artificial Intelligence
+            </button>
+
+            <button class="option" onclick="checkAnswer(this,false)">
+                C. Advanced Information
+            </button>
+
+            <button class="option" onclick="checkAnswer(this,false)">
+                D. Automated Interface
+            </button>
+
+            <div id="quiz-result"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+            <h2>BhashaLearn</h2>
+            <p>
+                Breaking language barriers in education.
+            </p>
+        </div>
+
+        <div>
+            <p>Gujarati • Hindi • English</p>
+            <p>Learn. Understand. Grow.</p>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 BhashaLearn. Designed for students.
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* DARK MODE */
+
+    function toggleDark() {
+        document.body.classList.toggle("dark");
+
+        const button = document.querySelector(".dark-btn");
+
+        if (document.body.classList.contains("dark")) {
+            button.innerHTML = "☀️";
+        } else {
+            button.innerHTML = "🌙";
+        }
+    }
+
+
+    /* LANGUAGE BUTTON */
+
+    function changeLanguage() {
+
+        const button = document.querySelector(".language-btn");
+
+        if (button.innerText === "ગુજરાતી") {
+            button.innerText = "हिंदी";
+        }
+        else if (button.innerText === "हिंदी") {
+            button.innerText = "English";
+        }
+        else {
+            button.innerText = "ગુજરાતી";
+        }
+    }
+
+
+    /* AI STYLE EXPLANATION */
+
+    function explainTopic() {
+
+        const topic = document.getElementById("topic").value.toLowerCase();
+
+        const language = document.getElementById("language").value;
+
+        const answer = document.getElementById("answer");
+
+        if (topic.trim() === "") {
+
+            answer.innerHTML = `
+                <h3>⚠️ Please enter a topic</h3>
+                <p>Example: Artificial Intelligence</p>
+            `;
+
+            return;
+        }
+
+
+        let explanation = "";
+
+
+        if (topic.includes("artificial intelligence") || topic === "ai") {
+
+            if (language === "gujarati") {
+
+                explanation =
+                "Artificial Intelligence (AI) એટલે એવી technology જેમાં computer અથવા machine માનવીની જેમ વિચારવા, શીખવા અને નિર્ણય લેવા માટે બનાવવામાં આવે છે.";
+
+            } else if (language === "hindi") {
+
+                explanation =
+                "Artificial Intelligence (AI) एक ऐसी technology है जिसमें computer या machine इंसानों की तरह सीखने, सोचने और decision लेने की कोशिश करती है.";
+
+            } else {
+
+                explanation =
+                "Artificial Intelligence is a technology that enables computers and machines to learn, reason and make decisions similar to humans.";
+            }
+
+        }
+
+        else if (topic.includes("machine learning") || topic === "ml") {
+
+            if (language === "gujarati") {
+
+                explanation =
+                "Machine Learning એ AI નો એક ભાગ છે જેમાં computer dataમાંથી patterns શીખે છે અને પછી prediction અથવા decision કરે છે.";
+
+            } else if (language === "hindi") {
+
+                explanation =
+                "Machine Learning AI का एक भाग है जिसमें computer data से patterns सीखता है और prediction या decision करता है.";
+
+            } else {
+
+                explanation =
+                "Machine Learning is a part of AI where computers learn patterns from data and use them to make predictions or decisions.";
+            }
+
+        }
+
+        else if (topic.includes("python")) {
+
+            if (language === "gujarati") {
+
+                explanation =
+                "Python એક સરળ અને popular programming language છે. તેનો ઉપયોગ web development, AI, Machine Learning, automation અને data scienceમાં થાય છે.";
+
+            } else if (language === "hindi") {
+
+                explanation =
+                "Python एक आसान और popular programming language है। इसका उपयोग web development, AI, Machine Learning, automation और data science में किया जाता है.";
+
+            } else {
+
+                explanation =
+                "Python is a simple and popular programming language used for web development, AI, machine learning, automation and data science.";
+            }
+
+        }
+
+        else {
+
+            if (language === "gujarati") {
+
+                explanation =
+                `"${topic}" વિશે સરળ explanation માટે આ platformમાં AI-based learning system ઉપયોગ કરી શકાય છે.`;
+
+            } else if (language === "hindi") {
+
+                explanation =
+                `"${topic}" को आसान भाषा में समझने के लिए AI-based learning system का उपयोग किया जा सकता है.`;
+
+            } else {
+
+                explanation =
+                `"${topic}" can be explained using an AI-based learning system in a simple and student-friendly way.`;
+            }
+        }
+
+
+        answer.innerHTML = `
+            <h3>💡 Simple Explanation</h3>
+            <p>${explanation}</p>
+        `;
+
+    }
+
+
+    /* TEXT TO SPEECH */
+
+    function speakAnswer() {
+
+        const text =
+        document.getElementById("answer").innerText;
+
+        if ("speechSynthesis" in window) {
+
+            const speech =
+            new SpeechSynthesisUtterance(text);
+
+            window.speechSynthesis.speak(speech);
+
+        } else {
+
+            alert("Text-to-Speech is not supported in this browser.");
+
+        }
+    }
+
+
+    /* QUIZ */
+
+    function checkAnswer(button, correct) {
+
+        const result =
+        document.getElementById("quiz-result");
+
+        if (correct) {
+
+            result.innerHTML =
+            "✅ Correct! Great job.";
+
+            result.style.color = "#00a67d";
+
+        } else {
+
+            result.innerHTML =
+            "❌ Incorrect. Try again!";
+
+            result.style.color = "#ef4444";
+        }
+
+    }
+
+
+    /* SCROLL ANIMATION */
+
+    const cards =
+    document.querySelectorAll(".feature-card, .subject");
+
+    const observer =
+    new IntersectionObserver(entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+
+            }
+
+        });
+
+    });
+
+
+    cards.forEach(card => {
+
+        card.style.opacity = "0";
+        card.style.transform = "translateY(30px)";
+        card.style.transition = "0.6s";
+
+        observer.observe(card);
+
+    });
+
+</script>
+
+</body>
+</html>
